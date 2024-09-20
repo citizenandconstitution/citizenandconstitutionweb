@@ -1,0 +1,87 @@
+/* Custom CSS for the Navbar */
+nav.navbar {
+    background-color: #000000; /* Dark Gray background for navbar */
+    padding: 10px 20px; /* Reduced padding for smaller height */
+    font-size: 0.9rem; /* Reduce font size */
+}
+
+nav.navbar .navbar-brand h1 {
+    font-size: 1.5rem; /* Smaller logo text size */
+    color: #edf6ff; /* Light color for logo */
+    margin: 0;
+    padding: 0;
+}
+
+nav.navbar .navbar-nav .nav-link {
+    color: #f8f9fa; /* Light color for text */
+    transition: color 0.3s ease;
+    font-weight: 500;
+    padding: 10px 15px; /* Reduce padding for smaller buttons */
+}
+
+nav.navbar .navbar-nav .nav-link:hover {
+    color: #969696; /* Change to a greenish color on hover */
+}
+
+nav.navbar .navbar-toggler {
+    border-color: rgba(255, 255, 255, 0.1); /* Light border color for toggler */
+}
+
+nav.navbar .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'><path stroke='rgba(248, 249, 250, 0.8)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/></svg>");
+    /* Custom light toggler icon */
+}
+
+.search-input {
+    position: relative;
+    margin-right: 20px; /* Aligns search input nicely */
+}
+
+.search-input input[type="text"] {
+    padding: 6px 12px;
+    font-size: 0.85rem;
+    border-radius: 4px;
+    border: 1px solid #ced4da;
+    outline: none;
+    width: 200px;
+    transition: width 0.3s ease;
+}
+
+.search-input input[type="text"]:focus {
+    width: 250px; /* Expands the input on focus */
+    border-color: #ffffff; /* Focus border color */
+}
+
+.search-input i {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #868e96;
+    cursor: pointer;
+}
+
+@media (max-width: 991px) {
+    .search-input {
+        display: none; /* Hide the search bar on small screens */
+    }
+
+    nav.navbar .navbar-nav .nav-link {
+        font-size: 1rem; /* Increase font size for mobile view */
+        padding: 12px 20px;
+    }
+}
+
+/* Optional: Styling the menu trigger for mobile */
+.menu-trigger {
+    color: #f8f9fa;
+    font-size: 1rem;
+    cursor: pointer;
+    display: none; /* Hidden by default */
+}
+
+@media (max-width: 768px) {
+    .menu-trigger {
+        display: inline-block; /* Show the menu trigger on mobile */
+    }
+}

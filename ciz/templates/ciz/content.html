@@ -1,0 +1,32 @@
+{% extends 'layout/main.html' %}
+{% load static %}
+{% block title %}
+  All Laws | Citizen and Constitution
+{% endblock title %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/content.css' %}">   <!-- Link to CSS -->
+<!-- Font Awesome Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+<div class="container mt-4">
+  <h3 class="text-center">EXPLORE CONTENTS</h3>
+
+  <div class="card-list">
+    {% for law in laws %}
+    <a href="{% url 'content_detail' law.id %}" class="card-item">
+      <!-- Display law image if available -->
+      <span class="law-title">{{ law.title }}</span> <!-- Law title -->
+      <p class="law-description">{{ law.sub }}</p> <!-- Truncated description -->
+      <div class="arrow">
+        <i class="fas fa-arrow-right card-icon"></i>
+      </div>
+    </a>
+    {% endfor %}
+  </div>
+</div>
+{% endblock content %}
+
+
+
+

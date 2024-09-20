@@ -1,0 +1,28 @@
+{% extends 'layout/main.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}Update Profile | Citizen and Constitution{% endblock title %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/user.css' %}"> 
+<div class="container rounded bg-white mt-5 mb-5">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="p-3 py-5">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4 class="text-right">Update Profile</h4>
+                </div>
+                <form method="post" action="{% url 'update_Profile' %}">
+                    {% csrf_token %}
+                    <fieldset class="form-group">
+                        {{ form|crispy }}
+                    </fieldset>
+                    <button type="submit" class="btn btn-primary">Save Profile</button>
+                    <a href="{% url 'user' %}" class="btn btn-secondary">Cancel</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

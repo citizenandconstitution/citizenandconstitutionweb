@@ -1,0 +1,53 @@
+{% extends 'layout/main.html' %}
+{% load static %}
+{% block title %}
+    Be the Judge - Legal Decision Game
+{% endblock title %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/judge.css' %}">
+    <div class="game-container">
+        <div class="game-area">
+            <div class="game-panel">
+                {% for case in cases %}
+                    <div class="case-container" id="case-{{ forloop.counter }}" data-answer="{{ case.correct_answer }}">
+                        <h3>Case {{ forloop.counter }}:</h3>
+                        <p class="case-question">{{ case.scenario }}</p>
+                        <button class="decision-btn" data-value="1">{{ case.option_1 }}</button>
+                        <button class="decision-btn" data-value="2">{{ case.option_2 }}</button>
+                        <p class="explanation"></p>
+                    </div>
+                {% endfor %}
+                <p class="result-message" id="result-msg" style="display: none;">You made your decisions!</p>
+                <a href="{% url 'content' %}" class="btn btn-primary">Back</a>
+                <a href="{% url 'quizzes' law.id %}" class="btn btn-primary">Take Quiz</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.querySelectorAll('.decision-btn').forEach(button => {
+            button.addEventListener('click', function () {
+                const caseContainer = this.parentElement;
+                const correctAnswer = caseContainer.getAttribute('data-answer');
+                const explanation = caseContainer.querySelector('.explanation');
+        
+                if (this.getAttribute('data-value') === correctAnswer) {
+                    explanation.textContent = "Correct! " + this.textContent + " is the right decision.";
+                    explanation.classList.remove('wrong');
+                    this.style.backgroundColor = 'green';
+                    correctAnswers++;
+                } else {
+                    explanation.textContent = "Wrong! The correct answer was: " + (correctAnswer === '1' ? caseContainer.querySelector('[data-value="1"]').textContent : caseContainer.querySelector('[data-value="2"]').textContent);
+                    explanation.classList.add('wrong');
+                    wrongAnswers++;
+                    this.style.backgroundColor = 'red';
+                }
+        
+                currentCase++;
+                checkGameEnd();
+            });
+        });
+        
+    </script>
+{% endblock content %}

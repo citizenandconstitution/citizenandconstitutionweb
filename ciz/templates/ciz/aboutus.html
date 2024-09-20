@@ -1,0 +1,25 @@
+{% extends 'layout/main.html' %}
+
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/about_us.css' %}">
+<div class="container" style="margin-top: 40px;">
+    <h1>About Us</h1>
+    <div class="about-section">
+        <h2>Our Mission</h2>
+        <p>At Citizen and Constitution, our mission is to make legal education accessible and engaging for everyone. We believe that understanding laws and rights should be straightforward and empowering.</p>
+
+        <h2>Our Team</h2>
+        <p>Our team consists of legal experts, educators, and technologists dedicated to providing high-quality resources and interactive learning experiences. Meet our team members:</p>
+        <ul>
+            <li><strong>John Doe</strong> - Legal Expert</li>
+            <li><strong>Jane Smith</strong> - Educational Specialist</li>
+            <li><strong>Alex Johnson</strong> - Technology Lead</li>
+        </ul>
+
+        <h2>Contact Us</h2>
+        <p>If you have any questions or feedback, feel free to reach out to us at <a href="mailto:info@citizenandconstitution.com">info@citizenandconstitution.com</a>.</p>
+    </div>
+</div>
+{% endblock content %}

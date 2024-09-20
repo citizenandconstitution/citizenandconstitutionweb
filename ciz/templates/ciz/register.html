@@ -1,0 +1,47 @@
+{% extends 'layout/main.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block title %}
+   Register | Citizen and Constitution
+{% endblock title %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}"> <!-- Use the same CSS as the login page -->
+
+<div class="login_form">
+  <form method="POST" class="border p-4 rounded">
+    {% csrf_token %}
+    <h3>Register</h3>
+    
+    <!-- Form fields rendered using crispy -->
+    <div class="input_box">
+      <label for="username">User name</label>
+      {{ form.username }} <!-- Adjust according to your form field (username, email, etc.) -->
+    </div>
+    
+    <div class="input_box">
+      <label for="email">Email</label>
+      {{ form.email }} <!-- Adjust according to your form field -->
+    </div>
+    
+    <div class="input_box">
+      <label for="password">Password</label>
+      {{ form.password1 }} <!-- Adjust according to your form field (for password) -->
+    </div>
+    
+    <div class="input_box">
+      <label for="password">Verify-Password</label>
+      {{ form.password2 }} <!-- Adjust according to your form field (for password confirmation) -->
+    </div>
+    
+    <!-- Register button -->
+    <button type="submit">Sign Up</button>
+    
+    <p class="sign_up">Already have an account? 
+      <a href="{% url 'login' %}">Log in</a>
+    </p>
+  </form>
+</div>
+
+{% endblock content %}

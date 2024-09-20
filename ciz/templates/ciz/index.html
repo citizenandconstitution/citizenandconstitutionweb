@@ -1,0 +1,25 @@
+{% extends 'layout/main.html'%}
+{% load static %}
+{% block title%}
+   index|Citizen and Constitution
+{% endblock title%}
+{% block content %}
+{% include 'inc/slider.html'%}
+<link rel="stylesheet" href="{% static 'css/index.css' %}">
+<div class="container" style="margin-top:40px;">
+   <div class="row">
+      <div class="col-12">
+      </div>
+   </div>
+   <div class="row">
+      {% block start %}
+      {% if user.is_authenticated %}
+      <center><h1>welcome back {{user.username}}!</h1></center>
+      <p style="font-size: 18px;">"Unlock a deeper understanding of the laws that govern our society with our interactive learning platform. Whether you're a student, a professional, or simply a curious citizen, our videos and stories bring the complexities of the legal world to life. Watch engaging videos that break down intricate legal concepts into easy-to-understand explanations, and explore real-life stories that illustrate how these laws impact everyday life. With our content, learning about the law is not just informative—it's an immersive experience that connects you to the heart of our legal system."</p>
+      <p style="font-size: 18px;">By diving deeper into our curated stories and engaging videos, you'll gain a comprehensive understanding of the laws that shape our society. Our approach breaks down complex legal concepts into relatable narratives and visual content, making learning not only accessible but also memorable. Whether you're new to legal studies or looking to expand your knowledge, our platform offers a dynamic way to explore and grasp the intricacies of the law, ensuring that you feel confident and informed. Join us in making legal knowledge more approachable, and empower yourself with the understanding needed to navigate the legal landscape confidently.</p>
+      {% else %}
+      <center><h1>log in, plz . . .</h1></center>
+      {% endif %}
+      {% endblock %}
+   </div>
+{% endblock content%}

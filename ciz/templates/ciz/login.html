@@ -1,0 +1,62 @@
+{% extends 'layout/main.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+   Login | Citizen and Constitution
+{% endblock title %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}"> <!-- Your custom CSS file -->
+
+<div class="login_form">
+  <form method="POST">
+    {% csrf_token %}
+    <h3>Log in with</h3>
+    <div class="login_option">
+      <!-- Google button -->
+      <div class="option">
+        <a href="#">
+          <img src="{% static 'images/search.jpg' %}" alt="Google" />
+          <span>Google</span>
+        </a>
+      </div>
+      <!-- Apple button -->
+      <div class="option">
+        <a href="#">
+          <img src="{% static 'images/apple.jpg' %}" alt="Apple" />
+          <span>Apple</span>
+        </a>
+      </div>
+    </div>
+    
+    <!-- Login option separator -->
+    <p class="separator">
+      <span>or</span>
+    </p>
+    
+    <!-- Email input box -->
+    <div class="input_box">
+      <label for="email">Email</label>
+      {{ form.username }} <!-- Adjust according to your form field -->
+    </div>
+    
+    <!-- Password input box -->
+    <div class="input_box">
+      <div class="password_title">
+        <label for="password">Password</label>
+        <a href="#">Forgot Password?</a>
+      </div>
+      {{ form.password }} <!-- Adjust according to your form field -->
+    </div>
+    
+    <!-- Login button -->
+    <button type="submit">Log In</button>
+    
+    <p class="sign_up">Don't have an account? 
+      <a href="{% url 'register' %}">Sign up</a>
+    </p>
+  </form>
+</div>
+
+{% endblock content %}

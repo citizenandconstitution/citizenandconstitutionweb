@@ -1,0 +1,80 @@
+/* General container styling */
+.container {
+    margin-top: 40px;
+}
+
+/* Content section styling */
+/* Increased size for the content section */
+.content-section {
+    width: 100%; /* Adjust the width as needed (e.g., 90% of the parent container) */
+    max-width: 1500px; /* Optional: Set a maximum width for larger screens */
+    margin: 40px auto; /* Center the container with increased margin */
+    background-color: #f9f9f9; /* Background color for better visibility */
+    padding: 40px; /* Increase padding inside the container */
+     /* Border with increased size */
+    border-radius: 8px; /* Optional: Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Shadow effect */
+}
+
+
+/* Heading styles */
+h1, h2 {
+    color: #333;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Video container styling */
+.video-container {
+    margin-bottom: 20px;
+}
+
+/* Flex container for read-aloud functionality */
+.flex-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+/* Buttons for read aloud functionality */
+.read-aloud-btn,
+.stop-read-aloud-btn {
+    cursor: pointer;
+    width: 24px;
+    height: 24px;
+    margin-left: 10px;
+    transition: opacity 0.3s;
+}
+
+.read-aloud-btn:hover,
+.stop-read-aloud-btn:hover {
+    opacity: 0.8;
+}
+
+/* Text styling for read aloud sections */
+#description-text,
+#story-text {
+    font-size: 16px;
+    line-height: 1.6;
+    white-space: pre-wrap;
+    color: #555;
+}
+
+/* Button styling */
+.btn-primary {
+    display: inline-block;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+

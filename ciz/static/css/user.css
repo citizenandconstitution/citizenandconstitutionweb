@@ -1,0 +1,83 @@
+/* General container styling */
+.container {
+    background-color: #c37df5; /* Light background color for the container */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Profile image styling */
+.profile-img {
+    width: 150px; /* Adjusted for consistency */
+    height: 150px; /* Adjusted for consistency */
+    border-radius: 50%;
+    border: 2px solid #dee2e6;
+}
+
+/* Profile info styling */
+.profile-info {
+    padding: 20px;
+}
+
+.profile-info p {
+    font-size: 16px;
+    color: #343a40; /* Darker text color for better readability */
+}
+
+.profile-info a.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    color: #fff;
+}
+
+.profile-info a.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #004085;
+}
+
+/* Profile settings section */
+.profile-settings {
+    padding: 20px;
+}
+
+.profile-settings h1 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #343a40; /* Darker text color for better readability */
+}
+
+.profile-settings p {
+    font-size: 16px;
+    color: #343a40; /* Darker text color for better readability */
+}
+
+.profile-settings a.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    color: #fff;
+}
+
+.profile-settings a.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #004085;
+}
+
+/* Experience section styling */
+.experience {
+    background-color: #e9ecef; /* Slightly lighter background for experience section */
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.add-experience {
+    cursor: pointer;
+    color: #007bff;
+}
+
+.add-experience:hover {
+    color: #0056b3;
+}
+
+/* Form input styling */
+input.form-control {
+    border-radius: 4px;
+}

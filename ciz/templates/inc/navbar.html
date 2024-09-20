@@ -1,0 +1,54 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/nav.css' %}">
+<nav class="navbar navbar-expand-lg  fixed-top"> <!-- Added fixed-top class -->
+    <div class="container-fluid">
+        <!-- ***** Logo Start ***** -->
+        <a href="{% url 'index' %}" class="navbar-brand">
+            <h1>CITIZEN AND CONSTITUTION</h1> <!-- You can replace with a logo image if needed -->
+        </a>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto">
+                <!-- Public navigation links -->
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{% url 'index' %}">Home</a>
+                </li>
+                <!-- Authenticated User-specific Links -->
+                {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'content' %}">Contents</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'user' %}">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'about_us' %}">About Us</a>
+                    </li>
+                {% else %}
+                    <!-- Guest User Links -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'login' %}">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'register' %}">Register</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+        <!-- ***** Navbar Menu End ***** -->
+    </div>
+</nav>
+
+<!-- Optional JavaScript for search input handling -->
+<script>
+function handleKeyPress(event) {
+    if (event.key === 'Enter') {
+        event.preventDefault();
+        // Add logic to handle the search action
+    }
+}
+</script>
+

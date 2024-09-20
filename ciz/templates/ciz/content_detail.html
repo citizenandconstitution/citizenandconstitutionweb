@@ -1,0 +1,94 @@
+{% extends 'layout/main.html' %}
+{% load static %}
+{% block title %}
+    {{ law.title }} | Citizen and Constitution
+{% endblock title %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/cd.css' %}"> 
+<div class="container" style="margin-top: 40px;">
+    <div class="content-section col-md-8 offset-md-2">
+        <h1>{{ law.title }}</h1>
+        
+        {% if law.video %}
+        <div class="video-container" style="margin-bottom: 20px;" allow="autoplay; encrypted-media">
+            <iframe class="no-pointer-events" width="100%" height="315" src="{{ law.video }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        {% else %}
+        <p>No video available.</p>
+        {% endif %}
+        
+        <div style="display: flex; align-items: center;">
+            <h2>Explanation</h2>
+            <img id="read-aloud-btn-description-text" src="{% static 'images/a.jpg' %}" 
+                 alt="Start Read Aloud" 
+                 onclick="toggleReadAloud('description-text')" 
+                 style="cursor: pointer; width: 20px; height: 20px; margin-left: 10px;">
+            <img id="stop-read-aloud-btn-description-text" src="{% static 'images/s.jpg' %}" 
+                 alt="Stop Read Aloud" 
+                 onclick="stopReading()" 
+                 style="cursor: pointer; width: 20px; height: 20px; margin-left: 5px; display: none;">
+        </div>
+        <p id="description-text" style="font-size: 16px; line-height: 1.6; white-space: pre-wrap;">{{ law.description|safe }}</p>
+        
+        <!-- Story Section with Read Aloud -->
+        <div style="display: flex; align-items: center;">
+            <h2>Learn through Story</h2>
+            <img id="read-aloud-btn-story-text" src="{% static 'images/a.jpg' %}" 
+                 alt="Start Read Aloud" 
+                 onclick="toggleReadAloud('story-text')" 
+                 style="cursor: pointer; width: 20px; height: 20px; margin-left: 10px;">
+            <img id="stop-read-aloud-btn-story-text" src="{% static 'images/s.jpg' %}" 
+                 alt="Stop Read Aloud" 
+                 onclick="stopReading()" 
+                 style="cursor: pointer; width: 20px; height: 20px; margin-left: 5px; display: none;">
+        </div>
+        <p id="story-text" style="font-size: 16px; line-height: 1.6; white-space: pre-wrap;">{{ law.story|safe }}</p>
+
+        <!-- Back and Legal Case Buttons -->
+        <a href="{% url 'content' %}" class="btn btn-primary">Back</a>
+        <a href="{% url 'legal_case_scenario' law.id %}" class="btn btn-primary">Play</a>
+    </div>
+</div>
+
+<!-- JavaScript to toggle the reading aloud and stop it -->
+<script>
+let currentUtterance = null;
+let currentlyReadingId = null;
+
+function toggleReadAloud(id) {
+    const textElement = document.getElementById(id);
+    let text = textElement.innerHTML.replace(/<br\s*\/?>/gi, '\n'); // Replace <br> tags with newlines
+
+    if (currentlyReadingId === id) {
+        // Stop reading if it's the same element
+        stopReading();
+    } else {
+        // Stop any ongoing speech first
+        stopReading();
+
+        // Start reading the new element
+        currentUtterance = new SpeechSynthesisUtterance(text);
+        window.speechSynthesis.speak(currentUtterance);
+
+        // Update the currently reading ID
+        currentlyReadingId = id;
+
+        // Hide the start button and show the stop button
+        document.getElementById(`read-aloud-btn-${id}`).style.display = 'none';
+        document.getElementById(`stop-read-aloud-btn-${id}`).style.display = 'inline';
+    }
+}
+
+function stopReading() {
+    if (currentUtterance) {
+        window.speechSynthesis.cancel();
+        currentlyReadingId = null;
+
+        // Show the start button and hide the stop button
+        document.querySelectorAll('[id^="read-aloud-btn-"]').forEach(btn => btn.style.display = 'inline');
+        document.querySelectorAll('[id^="stop-read-aloud-btn-"]').forEach(btn => btn.style.display = 'none');
+    }
+}
+</script>
+
+{% endblock content %}

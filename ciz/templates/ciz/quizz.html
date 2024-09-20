@@ -1,0 +1,167 @@
+{% extends 'layout/main.html' %}
+{% load static %}
+
+{% block title %}
+    Quizzes for {{ law.title }} | Citizen and Constitution
+{% endblock title %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/quizz.css' %}"> 
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Quizzes for {{ law.title }}</h1>
+
+    <!-- Timer -->
+    <div id="timer" class="text-center"></div>
+
+    <form id="quizForm" method="post" action="{% url 'submit_quiz' %}" onsubmit="return validateForm()">
+        {% csrf_token %}
+        {% for quiz in quizzes %}
+            <div class="quiz-box mb-4 p-3">
+                <div class="d-flex align-items-center">
+                    <p id="question-{{ quiz.id }}" class="question-text">{{ quiz.question }}</p>
+                    <img src="{% static 'images/a.jpg' %}" 
+                         alt="Start Read Aloud" 
+                         id="read-aloud-img-{{ quiz.id }}" 
+                         onclick="toggleReadAloud('{{ quiz.id }}')" 
+                         class="read-aloud-icon ms-2">
+                    <img src="{% static 'images/s.jpg' %}" 
+                         alt="Stop Read Aloud" 
+                         id="stop-read-aloud-img-{{ quiz.id }}" 
+                         onclick="stopReading()" 
+                         class="read-aloud-icon ms-2" style="display: none;">
+                </div>
+                <div class="options-container mt-2">
+                    <ul class="list-unstyled">
+                        <li>
+                            <input type="radio" class="btn-check" id="btn-check1-{{ quiz.id }}" name="quiz_{{ quiz.id }}" value="A">
+                            <label class="option-label" for="btn-check1-{{ quiz.id }}">{{ quiz.option1 }}</label>
+                        </li>
+                        <li>
+                            <input type="radio" class="btn-check" id="btn-check2-{{ quiz.id }}" name="quiz_{{ quiz.id }}" value="B">
+                            <label class="option-label" for="btn-check2-{{ quiz.id }}">{{ quiz.option2 }}</label>
+                        </li>
+                        <li>
+                            <input type="radio" class="btn-check" id="btn-check3-{{ quiz.id }}" name="quiz_{{ quiz.id }}" value="C">
+                            <label class="option-label" for="btn-check3-{{ quiz.id }}">{{ quiz.option3 }}</label>
+                        </li>
+                        <li>
+                            <input type="radio" class="btn-check" id="btn-check4-{{ quiz.id }}" name="quiz_{{ quiz.id }}" value="D">
+                            <label class="option-label" for="btn-check4-{{ quiz.id }}">{{ quiz.option4 }}</label>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        {% endfor %}
+        <div class="d-flex justify-content-between mt-4">
+            <a href="{% url 'content' %}" class="btn btn-outline-secondary">Back</a>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+
+    {% if result_message %}
+        <div class="alert alert-success mt-3">
+            <p>{{ result_message }}</p>
+        </div>
+    {% endif %}
+</div>
+
+<!-- Improved CSS styling -->
+
+<!-- JavaScript for handling read aloud and validation -->
+<script>
+    document.querySelectorAll('.btn-check').forEach((radio) => {
+        let previouslyChecked = null;
+
+        radio.addEventListener('click', function() {
+            if (this === previouslyChecked) {
+                this.checked = false;
+                previouslyChecked = null;
+
+                let selectedLabel = document.querySelector(`label[for="${this.id}"]`);
+                selectedLabel.classList.remove('active');
+            } else {
+                previouslyChecked = this;
+                let selectedLabel = document.querySelector(`label[for="${this.id}"]`);
+                selectedLabel.classList.add('active');
+            }
+        });
+
+        radio.addEventListener('change', function() {
+            let labels = document.querySelectorAll(`label[for^=btn-check][for*="${this.name}"]`);
+            labels.forEach(label => label.classList.remove('active'));
+            let selectedLabel = document.querySelector(`label[for="${this.id}"]`);
+            selectedLabel.classList.add('active');
+        });
+    });
+
+    let timeLeft = 2 * 60;
+    function updateTimer() {
+        let minutes = Math.floor(timeLeft / 60);
+        let seconds = timeLeft % 60;
+        seconds = seconds < 10 ? '0' + seconds : seconds;
+        document.getElementById('timer').textContent = `Time left: ${minutes}:${seconds}`;
+        if (timeLeft <= 0) {
+            clearInterval(timerInterval);
+            document.getElementById('quizForm').submit();
+        }
+        timeLeft--;
+    }
+
+    let timerInterval = setInterval(updateTimer, 1000);
+
+    function toggleReadAloud(id) {
+        const readAloudImg = document.getElementById(`read-aloud-img-${id}`);
+        const stopReadAloudImg = document.getElementById(`stop-read-aloud-img-${id}`);
+        const text = document.getElementById(`question-${id}`).textContent;
+
+        if (readAloudImg.style.display !== 'none') {
+            readAloudImg.style.display = 'none';
+            stopReadAloudImg.style.display = 'inline';
+            readAloud(text);
+        } else {
+            readAloudImg.style.display = 'inline';
+            stopReadAloudImg.style.display = 'none';
+            stopReading();
+        }
+    }
+
+    function readAloud(text) {
+        var utterance = new SpeechSynthesisUtterance(text);
+        window.speechSynthesis.speak(utterance);
+    }
+
+    function stopReading() {
+        window.speechSynthesis.cancel();
+        document.querySelectorAll('img[id^="read-aloud-img-"]').forEach(img => img.style.display = 'inline');
+        document.querySelectorAll('img[id^="stop-read-aloud-img-"]').forEach(img => img.style.display = 'none');
+    }
+
+    function validateForm() {
+        var quizzes = document.querySelectorAll('[name^="quiz_"]');
+        var unanswered = false;
+        
+        for (var i = 0; i < quizzes.length; i++) {
+            var quiz = quizzes[i].name;
+            var selected = document.querySelector('input[name="' + quiz + '"]:checked');
+            
+            // If no radio button is selected for this question
+            if (!selected) {
+                unanswered = true;
+                // Scroll to the unanswered question
+                document.getElementById(quiz).scrollIntoView();
+                alert('Please answer all questions before submitting.');
+                break;
+            }
+        }
+        
+        return !unanswered;
+    }
+    
+</script>
+
+{% endblock content %}
+
+
+
+
+

@@ -1,0 +1,110 @@
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.navbar {
+    z-index: 100; /* Ensure the navbar stays above other content */
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: #333;
+    padding: 10px;
+    color: white;
+}
+
+.game-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f9f9f9;
+    padding: 20px;
+    padding-top: 80px; /* Add space between the navbar and the content */
+}
+
+.game-area {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    width: 70%; /* Keep the size increase */
+    max-width: 900px;
+    text-align: center;
+    margin-top: 20px; /* Additional margin from top */
+}
+
+h1 {
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+.case-container {
+    margin-bottom: 30px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+}
+
+.case-container h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.case-container p {
+    font-size: 16px;
+    margin-bottom: 15px;
+}
+
+.decision-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    background-color: #e0e0e0;
+    transition: background-color 0.3s;
+}
+
+.decision-btn:hover {
+    background-color: #dcdcdc;
+}
+
+.explanation {
+    margin-top: 10px;
+    font-size: 16px;
+}
+
+.result-message {
+    font-size: 18px;
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.result-message.wrong {
+    color: red;
+}
+
+.result-message:not(.wrong) {
+    color: green;
+}
+
+.btn {
+    margin-top: 10px;
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
